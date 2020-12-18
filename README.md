@@ -201,7 +201,7 @@ This is the base HTML template that all other HTML files inherit from. I chose t
 
 </html>
 ```
-# Template Inheritance
+## Template Inheritance
 The great thing about Django is having template inheritance. Once I had a base template, all I needed was to extend the base in all other HTML files. Below is the code snippet for my home page. As you can see, it was very concise, all because everything that I needed was inherited from the base template.
 ```python
 {% extends "LABucketListApp/LABucketListApp_base.html" %}
@@ -212,6 +212,6 @@ The great thing about Django is having template inheritance. Once I had a base t
 
 {% block content %}{% endblock %}
 ```
- # Bootstrap Elements
+## Bootstrap Elements
 Using bootstrap elements, I was able to utilize a navbar for my navigation header, cards for my index page, a carousel for my details page, and a modal for a confirmation of delete.
 
