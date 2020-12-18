@@ -1,6 +1,6 @@
 # Live Project
 ## Introduction
-For two weeks of my time at the Tech Academy, I worked with a team of other students on a Django Python project to develop apps for an interactive website for managing one's collections of things related to various hobbies. Working in the Django framework and in a team setting was a great opportunity for learning version control, managing deadlines, and adding requested features. I saw how a good developer works with what they have and know to make a quality product. Within this two week sprint, I was given user stories of increasing difficulty to complete inorder to increase our problem solving mindest. I worked on several [back end stories](#back-end-stories) and front end stories of an application about destinations to visit in Los Angeles. Being a student there, I have always wanted to keep track of the places I have been. So, this was the perfect opportunity to incorporate something I am passionate about, into a project where I gained real world experience and improved my skills. 
+For two weeks of my time at the Tech Academy, I worked with a team of other students on a Django Python project to develop apps for an interactive website for managing one's collections of things related to various hobbies. Working in the Django framework and in a team setting was a great opportunity for learning version control, managing deadlines, and adding requested features. I saw how a good developer works with what they have and know to make a quality product. Within this two week sprint, I was given user stories of increasing difficulty to complete inorder to increase our problem solving mindest. I worked on several [back end stories](#back-end-stories) and [front end stories](#front-end-stories) of an application about destinations to visit in Los Angeles. Being a student there, I have always wanted to keep track of the places I have been. So, this was the perfect opportunity to incorporate something I am passionate about, into a project where I gained real world experience and improved my skills. 
 
 Below are descriptions and examples of some of the stories that I worked on within my Los Angeles Destination App.
 
@@ -155,3 +155,63 @@ def bucketlist_delete(request, pk):
     else:
         return redirect('BucketList_details', pk)
 ```
+
+# Front End Stories
+* [Base HTML Template](#base-html-template)
+* [Template Inheritance](#template-inheritance)
+* [Bootstrap Elements](#bootstrap-elements)
+
+## Base HTML Template
+This is the base HTML template that all other HTML files inherit from. I chose to include Bootstrap which makes adding elements to the application very easy. 
+
+```html
+{% load static %}
+<!DOCTYPE html>
+
+<html lang="en" >
+	<head>
+	    <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!-- Google Fonts -->
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet">
+
+        <!-- Bootstrap and CSS -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" \
+              integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="{% static 'LABucketListApp/css/layout.css' %}">
+
+        <title>{% block title %}{% endblock %}</title>
+    </head>
+
+    <body class="bg_img">
+        {% include "./LABucketListApp_navbar.html" %}
+
+        <div class="header-center">
+            {% block header %}{% endblock %}
+        </div>
+
+        {% block content %} {% endblock %}
+        <!-- for the modal -->
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+    </body>
+
+</html>
+```
+# Template Inheritance
+The great thing about Django is having template inheritance. Once I had a base template, all I needed was to extend the base in all other HTML files. Below is the code snippet for my home page. As you can see, it was very concise, all because everything that I needed was inherited from the base template.
+```python
+{% extends "LABucketListApp/LABucketListApp_base.html" %}
+
+{% block title %}Los Angeles Bucket List{% endblock %}
+
+{% block header %}<h1 class="home-header">LOS ANGELES</h1>{% endblock %}
+
+{% block content %}{% endblock %}
+```
+ # Bootstrap Elements
+Using bootstrap elements, I was able to utilize a navbar for my navigation header, cards for my index page, a carousel for my details page, and a modal for a confirmation of delete.
+
