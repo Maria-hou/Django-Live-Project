@@ -84,3 +84,74 @@ To ensure that the request to add another destination is not an attack on the se
 ```
 
 ## Views Functions
+The views page was vital to my application becuase it holds the functions that other pages call.
+
+Here is the function that was needed in order to create a new destination in the database.
+```Python
+from django.shortcuts import render, redirect
+from .forms import DestinationForm
+
+# Add Destination to database
+def bucketlist_create(request):
+    form = DestinationForm(data=request.POST or None)
+    if form.is_valid():
+        form.save()
+        return redirect('BucketList_home')
+    context = {'form': form}
+    return render(request, 'LABucketListApp/LABucketListApp_create.html', context)
+```
+This is the function needed to display all the desinations from the database. It utilizes a paginator that displays 6 destinations on a single page. 
+```python
+from django.shortcuts import render, redirect
+from .forms import DestinationForm
+from .models import Destination
+from django.core.paginator import Paginator
+
+# display all locations from database for index
+def bucketlist_index(request):
+    form = DestinationForm()
+    destinations = Destination.objects.all()
+    page = Paginator(destinations, 6)
+    page_number = request.GET.get('page')
+    page_obj = page.get_page(page_number)
+    context = {'form': form, 'destinations': destinations}
+    return render(request, 'LABucketListApp/LABucketListApp_index.html', {'page_obj': page_obj}, context)
+```
+From the index, the user can then select a specific location to display all the details of the destination, which called the below function.
+```python
+from django.shortcuts import render, redirect, get_object_or_404
+from .models import Destination
+
+# displays the details of each destination
+def bucketlist_details(request, pk):
+    destinations = get_object_or_404(Destination, pk=pk)
+    context = {'destinations': destinations}
+    return render(request, 'LABucketListApp/LABucketListApp_details.html', context)
+```
+These next two functions allowed the user to edit and delete a location.
+```python
+from django.shortcuts import render, redirect, get_object_or_404
+from .forms import DestinationForm
+from .models import Destination
+
+# edit the destination
+def bucketlist_edit(request, pk):
+    destinations = get_object_or_404(Destination, pk=pk)
+    form = DestinationForm(data=request.POST or None, instance=destinations)
+    if request.method == "POST":
+        if form.is_valid():
+            form.save()
+            return redirect('BucketList_details', pk)
+    context = {'destinations': destinations, 'form': form}
+    return render(request, 'LABucketListApp/LABucketListApp_edit.html', context)
+
+
+# delete function
+def bucketlist_delete(request, pk):
+    destinations = get_object_or_404(Destination, pk=pk)
+    if request.method == 'POST':
+        destinations.delete()
+        return redirect('BucketList_index')
+    else:
+        return redirect('BucketList_details', pk)
+```
