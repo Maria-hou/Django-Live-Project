@@ -213,5 +213,5 @@ The great thing about Django is having template inheritance. Once I had a base t
 {% block content %}{% endblock %}
 ```
 ## Bootstrap Elements
-Using bootstrap elements, I was able to utilize a navbar for my navigation header, cards for my index page, a carousel for my details page, and a modal for a confirmation of delete.
+Using bootstrap elements, I was able to utilize a navbar for my navigation header, cards for my [index page](https://github.com/Maria-hou/Django-Live-Project/blob/main/index.PNG), a carousel for my [details page](https://github.com/Maria-hou/Django-Live-Project/blob/main/details.png) and [update page](https://github.com/Maria-hou/Django-Live-Project/blob/main/edit.png), and a [modal](https://github.com/Maria-hou/Django-Live-Project/blob/main/delete.png) for a confirmation of deleteting a location.
 
